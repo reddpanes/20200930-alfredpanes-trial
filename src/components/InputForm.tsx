@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import * as yup from 'yup';
 import { Formik, Field, Form } from 'formik';
-import { Row, Col, Input, Select, Button } from 'antd'
+import { Row, Col, Input, Select, Button, Typography, Table } from 'antd'
+
 
 
 //citiesData
 import countries from '../data/countries';
 import UserDataType from "../types/UserDataType";
+import {CSVReader} from "react-papaparse";
+import ConfirmDelete from "./ConfirmDelete";
 
 const { Option } = Select;
-
+const { Text } = Typography;
 
 
 const inputSchema = yup.object({
@@ -24,6 +27,8 @@ const inputSchema = yup.object({
 export default function InputForm({saveData}:{saveData: any}){
 
   const [cities, setCities] = useState<string[]>([]);
+  const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
+  const [csvData, setCSVData] = useState([]);
 
   const initialValues: UserDataType = {
     name: '',
@@ -36,10 +41,27 @@ export default function InputForm({saveData}:{saveData: any}){
 
   const handleSubmitForm = (values: UserDataType) => {
     saveData(values);
+  };
+
+  const handleParseCSV = (csvData: any) => {
+
+    const newData = csvData.map( (indivData:any) => {
+      const dataPair = [...indivData.data];
+      return { name: [dataPair[0]], price : parseFloat(dataPair[1]) }
+    });
+    newData.shift();
+    setCSVData(newData);
+  };
+
+  const removeCSVData = () => {
+    setCSVData([]);
+    setConfirmDelete(false);
   }
 
-  console.log(cities);
+
+
   return (
+    <>
       <Formik
         initialValues={initialValues}
         validationSchema={inputSchema}
@@ -182,11 +204,52 @@ export default function InputForm({saveData}:{saveData: any}){
                 }
               </Col>
             </Row>
-            <Row justify={'center'} style={{marginTop: '20px'}}>
-              <Button htmlType={'submit'} type={'primary'}>Continue</Button>
+            <div style={{margin: '20px 0'}}>
+              <Text strong >Input CSV Data</Text>
+            </div>
+
+            <Row gutter={16} justify={'center'}>
+              <Col span={11}>
+                <div style={{width:'80%'}}>
+                  <CSVReader
+                    onDrop={(data)=>handleParseCSV(data)}
+                    noDrag
+                    style={{width: '80%'}}
+                    addRemoveButton
+                    onRemoveFile={()=>setConfirmDelete(true)}
+                  >
+                    <span>Click to Upload</span>
+                  </CSVReader>
+                </div>
+                <Row justify={'center'} style={{marginTop: '20px'}}>
+                  <Button htmlType={'submit'} type={'primary'} disabled={csvData.length === 0}>Continue</Button>
+                </Row>
+              </Col>
+              <Col span={11}>
+                {csvData.length > 0 && <Table
+                  columns={[
+                    {
+                      title: 'Product Name',
+                      dataIndex: 'name',
+                      key: 'name'
+                    },
+                    {
+                      title: 'Price',
+                      dataIndex: 'price',
+                      key:'price',
+                    }
+                  ]}
+                  dataSource={csvData}
+                />}
+              </Col>
+
             </Row>
+
+
           </Form>
         )}
       />
+      <ConfirmDelete confirmDelete={confirmDelete} setConfirmDelete={setConfirmDelete} removeCSVData={removeCSVData}/>
+    </>
   )
 }
