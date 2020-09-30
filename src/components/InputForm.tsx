@@ -24,7 +24,12 @@ const inputSchema = yup.object({
   age: yup.number().min(1).max(120).required('Age is required'),
 });
 
-export default function InputForm({saveData}:{saveData: any}){
+type InputFormProps = {
+  saveData: Function,
+  setTableData: Function,
+}
+
+export default function InputForm({saveData, setTableData}:InputFormProps){
 
   const [cities, setCities] = useState<string[]>([]);
   const [confirmDelete, setConfirmDelete] = useState<boolean>(false);
@@ -51,6 +56,7 @@ export default function InputForm({saveData}:{saveData: any}){
     });
     newData.shift();
     setCSVData(newData);
+    setTableData(newData);
   };
 
   const removeCSVData = () => {

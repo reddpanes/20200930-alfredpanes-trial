@@ -4,6 +4,7 @@ import { Radio, Row } from 'antd';
 import InputForm from './components/InputForm';
 import formatName from "./utils/formatName";
 import UserDataType from "./types/UserDataType";
+import TableDataType from "./types/TableDataType";
 import OutputView from "./components/OutputView";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
     city: '',
     age: 0,
 });
+  const [tableData, setTableData] = useState<TableDataType | null>(null);
 
   const saveData = (values: UserDataType ): any => {
     const formattedName = formatName(values.name);
@@ -35,7 +37,12 @@ function App() {
         </Radio.Group>
       </Row>
       <div style={{margin: '0 10%'}}>
-        {view === 'input' ? <InputForm saveData={saveData}/> : <OutputView data={data}/>}
+        {view === 'input'
+          ?
+          <InputForm saveData={saveData} setTableData={setTableData}/>
+          :
+          <OutputView data={data} tableData={tableData}/>
+        }
       </div>
     </>
   );
