@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/20200930-alfredpanes-trial/static/css/main.5f361e03.chunk.css",
+    "main.js": "/20200930-alfredpanes-trial/static/js/main.b6fb9289.chunk.js",
+    "main.js.map": "/20200930-alfredpanes-trial/static/js/main.b6fb9289.chunk.js.map",
+    "runtime-main.js": "/20200930-alfredpanes-trial/static/js/runtime-main.8da88993.js",
+    "runtime-main.js.map": "/20200930-alfredpanes-trial/static/js/runtime-main.8da88993.js.map",
+    "static/css/2.220ccb42.chunk.css": "/20200930-alfredpanes-trial/static/css/2.220ccb42.chunk.css",
+    "static/js/2.b1432576.chunk.js": "/20200930-alfredpanes-trial/static/js/2.b1432576.chunk.js",
+    "static/js/2.b1432576.chunk.js.map": "/20200930-alfredpanes-trial/static/js/2.b1432576.chunk.js.map",
+    "index.html": "/20200930-alfredpanes-trial/index.html",
+    "precache-manifest.c04f84584746fc180c29bab9f7f8b5cb.js": "/20200930-alfredpanes-trial/precache-manifest.c04f84584746fc180c29bab9f7f8b5cb.js",
+    "service-worker.js": "/20200930-alfredpanes-trial/service-worker.js",
+    "static/css/2.220ccb42.chunk.css.map": "/20200930-alfredpanes-trial/static/css/2.220ccb42.chunk.css.map",
+    "static/css/main.5f361e03.chunk.css.map": "/20200930-alfredpanes-trial/static/css/main.5f361e03.chunk.css.map",
+    "static/js/2.b1432576.chunk.js.LICENSE.txt": "/20200930-alfredpanes-trial/static/js/2.b1432576.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8da88993.js",
+    "static/css/2.220ccb42.chunk.css",
+    "static/js/2.b1432576.chunk.js",
+    "static/css/main.5f361e03.chunk.css",
+    "static/js/main.b6fb9289.chunk.js"
+  ]
+}
