@@ -13,11 +13,11 @@ const divStyle = {
   display: 'flex',
   justifyContent: 'space-between',
   borderBottom: '1px solid gray',
-  margin: '10px',
+  margin: '20px 10px',
 };
 
 type OutputProps = {
-  data: UserDataType,
+  data: any,
   tableData: any
 }
 
@@ -28,40 +28,26 @@ export default function OutputView({data, tableData}: OutputProps){
   return(
     <>
       <Row justify={'center'}>
-        <Col span={11} style={divStyle}>
-          <Text strong>Name:</Text>
-          <Text>{data.name}</Text>
+        <Col span={11}>
+          {Object.keys(data).map((key, index)=>(
+            <div
+              key={index}
+              style={divStyle}
+            >
+              <Text strong>{key}:</Text>
+              <Text>{data[key]}</Text>
+            </div>
+          ))}
         </Col>
-        <Col span={11} style={divStyle}>
-          <Text strong>Email:</Text>
-          <Text>{data.email}</Text>
-        </Col>
-      </Row>
-      <Row justify={'center'}>
-        <Col span={11} style={divStyle}>
-          <Text strong>Gender:</Text>
-          <Text>{data.gender}</Text>
-        </Col>
-        <Col span={11} style={divStyle}>
-          <Text strong>Country:</Text>
-          <Text>{data.country}</Text>
-        </Col>
-      </Row>
-      <Row justify={'center'}>
-        <Col span={11} style={divStyle}>
-          <Text strong>Age:</Text>
-          <Text>{data.age}</Text>
-        </Col>
-        <Col span={11} style={divStyle}>
-          <Text strong>City:</Text>
-          <Text>{data.city}</Text>
+        <Col span={11}>
+          <Table
+            columns={columns}
+            dataSource={tableData}
+            pagination={{ pageSize: 10 }}
+            scroll={{ y: 240 }}/>
         </Col>
       </Row>
       <Row justify={'center'}>
-        <Col span={11} style={divStyle}>
-          <Table columns={columns} dataSource={tableData} pagination={{ pageSize: 10 }} scroll={{ y: 240 }}/>
-        </Col>
-        <Col span={11} style={divStyle}>
           <BarChart
             data={tableData}
             width={700}
@@ -77,7 +63,6 @@ export default function OutputView({data, tableData}: OutputProps){
             <Tooltip/>
             <Bar dataKey="price" fill="#8884d8" />
           </BarChart>
-        </Col>
       </Row>
     </>
   )
